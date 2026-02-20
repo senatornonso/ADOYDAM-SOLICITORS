@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="image/logo.png">
+<link rel="apple-touch-icon" href="image/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adoydam Solicitors And Advocates | Maritime & Corporate Law</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a192f; /* Navy */
+            --accent: #c5a059;  /* Gold */
+            --accent-bright: #e2c082; /* Lighter Gold for gradients */
+            --text: #333;
+            --light: #f4f4f4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+
+        body { line-height: 1.6; color: var(--text); scroll-behavior: smooth; overflow-x: hidden; }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        
+        /* INCREASED LOGO SIZES */
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 50px; width: auto; border-radius: 4px; } /* Increased from 35px */
+        .logo { font-weight: bold; font-size: 1.3rem; color: var(--primary); text-transform: uppercase; letter-spacing: 0.5px; }
+        .logo span { color: var(--accent); }
+        
+        .nav-links { display: none; list-style: none; }
+
+        /* --- ANIMATED CALL BUTTON --- */
+        .cta-btn-nav {
+            background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+            color: white !important;
+            padding: 10px 18px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse-animation 2s infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes pulse-animation {
+            0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(197, 160, 89, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
+        }
+
+        /* Hero */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(10,25,47,0.85), rgba(10,25,47,0.85)), 
+                        url('https://images.unsplash.com/photo-1505142446710-2f02aa721106?auto=format&fit=crop&q=80&w=1600') center/cover;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: white;
+            padding: 0 20px;
+        }
+        .hero-content { max-width: 800px; }
+        .hero h1 { font-size: 2.2rem; margin-bottom: 1rem; line-height: 1.2; }
+        .hero p { font-size: 1.1rem; margin-bottom: 2rem; }
+        .btn-primary { background: var(--accent); color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; display: inline-block; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-primary:hover { background: var(--accent-bright); transform: translateY(-2px); }
+
+        /* Insights */
+        .insights { padding: 4rem 5%; background: #0a192f; color: white; }
+        .insights-header { text-align: center; margin-bottom: 3rem; }
+        .badge { background: var(--accent); color: var(--primary); padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+        .divider { width: 50px; height: 3px; background: var(--accent); margin: 15px auto; }
+        .insight-main { text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.1rem; }
+        .insight-grid { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 3rem; }
+        .insight-card { background: rgba(255,255,255,0.05); padding: 30px; border-left: 4px solid var(--accent); border-radius: 0 10px 10px 0; }
+        .bottom-line { text-align: center; background: white; color: var(--primary); padding: 30px; border-radius: 15px; }
+
+        /* Gallery */
+        .gallery { padding: 4rem 5%; background: white; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .gallery-item { 
+            overflow: hidden; 
+            border-radius: 15px; 
+            aspect-ratio: 1/1;
+            cursor: pointer; 
+            background: #fdfdfd; 
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .gallery-item:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .gallery-item img { max-width: 90%; max-height: 90%; object-fit: contain; border-radius: 10px; }
+
+        /* Modal */
+        .modal { display: none; position: fixed; z-index: 2000; padding-top: 50px; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); }
+        .modal-content { margin: auto; display: block; width: auto; max-width: 95%; max-height: 80vh; animation: zoom 0.3s; border-radius: 10px; }
+
+        /* Contact */
+        .contact { padding: 4rem 5%; background: var(--light); }
+        .contact-container { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 2rem; }
+        input, textarea { width: 100%; padding: 12px; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; }
+        
+        #scrollToTopBtn {
+            display: none; position: fixed; bottom: 20px; right: 20px; z-index: 99;
+            background: var(--accent); color: white; border: none; padding: 12px;
+            border-radius: 50%; cursor: pointer; width: 45px; height: 45px; transition: 0.3s;
+        }
+
+        /* Robot Assistant */
+        .bot-container {
+            position: fixed; bottom: 85px; right: 20px; width: 280px;
+            background: white; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 2001; display: none; flex-direction: column; overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .bot-header { background: var(--primary); color: white; padding: 12px; display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 0.9rem; }
+        .bot-status { width: 10px; height: 10px; background: #2ecc71; border-radius: 50%; }
+        .bot-body { padding: 12px; background: #f9f9f9; max-height: 200px; overflow-y: auto; font-size: 0.85rem; }
+        .bot-msg { background: white; padding: 10px; border-radius: 10px; margin-bottom: 8px; border-left: 3px solid var(--accent); }
+        .bot-footer { display: flex; padding: 10px; gap: 5px; background: white; }
+        .bot-btn { flex: 1; text-align: center; text-decoration: none; font-size: 0.8rem; padding: 8px; border-radius: 4px; background: #eee; color: var(--primary); font-weight: bold; }
+        .bot-btn.gold { background: var(--accent); color: white; }
+
+        /* DESKTOP RESPONSIVENESS */
+        @media (min-width: 768px) {
+            .navbar { padding: 1rem 10%; }
+            .logo-img { height: 75px; } /* Large Desktop Logo */
+            .logo { font-size: 1.8rem; } /* Bold Text Logo */
+            .nav-links { display: flex; }
+            .nav-links li { margin: 0 1rem; }
+            .nav-links a { text-decoration: none; color: var(--primary); font-weight: 500; }
+            
+            .hero h1 { font-size: 3.5rem; }
+            .insight-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+            .gallery-item { height: 400px; aspect-ratio: auto; }
+            .contact-container { grid-template-columns: 1fr 1fr; padding: 0 10%; }
+            .bot-container { width: 320px; }
+        }
+
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        footer { background: var(--primary); color: white; text-align: center; padding: 2rem 5%; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="image/logo.png" alt="Logo" class="logo-img">
+            <div class="logo">ADOYDAM <span>SOLICITORS</span></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#insights">Insights</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="tel:09033133308" class="cta-btn-nav"><i class="fas fa-phone-alt"></i> Call Now</a>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1>Navigating the Legal Currents of Nigeria’s Maritime Industry</h1>
+            <p>Expert Legal Guidance in Maritime Law, Corporate Strategy, and Dispute Resolution.</p>
+            <a href="#contact" class="btn-primary">Request Consultation</a>
+        </div>
+    </header>
+
+    <section id="insights" class="insights">
+        <div class="insights-header">
+            <span class="badge">Legal Intelligence</span>
+            <h2>Maritime Industry Insights</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="insights-container">
+            <div class="insight-main reveal">
+                <h3>Navigating the Legal Currents ⚓</h3>
+                <p>The Nigerian maritime sector operates within a complex legal environment. Understanding these realities is about strategic resilience.</p>
+            </div>
+            <div class="insight-grid">
+                <div class="insight-card reveal">
+                    <h4>Geopolitics & Sanctions 🌍</h4>
+                    <p>Operators must conduct rigorous due diligence to ensure chains are not inadvertently financing maritime crime.</p>
+                </div>
+                <div class="insight-card reveal">
+                    <h4>Piracy & SPOMO Act 🚫</h4>
+                    <p>The SPOMO Act provides a robust framework with severe penalties, signaling Nigeria's commitment to security.</p>
+                </div>
+            </div>
+            <div class="bottom-line reveal">
+                <p><strong>The Bottom Line:</strong> Success demands a proactive and informed approach to legal risk management.</p>
+                <p style="color:var(--accent); margin-top:10px; font-weight: bold;">Omodolapo Yusuff, Principal Partner</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <center><h2 style="margin-bottom: 2rem; color: var(--primary);">Gallery</h2></center>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="image/lawyer.png" alt="Omodolapo Yusuff" onclick="openPreview(this.src)"></div>
+            <div class="gallery-item"><img src="image/lawyer2.png" alt="Legal Team" onclick="openPreview(this.src)"></div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <center><h2 style="margin-bottom: 2rem;">Contact Us</h2></center>
+        <div class="contact-container">
+            <div class="info">
+                <p style="margin-bottom: 1rem;"><i class="fas fa-map-marker-alt" style="color:var(--accent); width: 25px;"></i> 213 Akinyele St, Ipaja, Lagos</p>
+                <p style="margin-bottom: 1rem;"><i class="fas fa-phone" style="color:var(--accent); width: 25px;"></i> 0903 313 3308</p>
+                <p style="margin-bottom: 1rem;"><i class="fas fa-envelope" style="color:var(--accent); width: 25px;"></i> omodolapoyusuff@gmail.com</p>
+                <p style="margin-top: 1.5rem;">
+                    <a href="https://maps.google.com/?cid=3663561385637779559&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl" target="_blank" style="color: var(--accent); font-weight: bold; text-decoration: none;">
+                        <i class="fas fa-external-link-alt"></i> View on Google Maps
+                    </a>
+                </p>
+            </div>
+            <form id="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Briefly describe your legal enquiry..." rows="4" required></textarea>
+                <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Adoydam Solicitors and Advocates.</p>
+    </footer>
+
+    <button id="scrollToTopBtn" onclick="topFunction()"><i class="fas fa-chevron-up"></i></button>
+
+    <div id="legalBot" class="bot-container">
+        <div class="bot-header">
+            <div class="bot-status"></div>
+            <span>Adoydam Assistant</span>
+            <button onclick="closeBot()" style="margin-left:auto; background:none; border:none; color:white; cursor:pointer; font-size: 1.5rem;">×</button>
+        </div>
+        <div class="bot-body">
+            <div class="bot-msg"><p>Welcome! ⚖️ Need legal answers immediately?</p></div>
+            <div class="bot-msg"><p>Call us at: <br><strong>0903 313 3308</strong></p></div>
+        </div>
+        <div class="bot-footer">
+            <a href="mailto:omodolapoyusuff@gmail.com" class="bot-btn">Email</a>
+            <a href="tel:09033133308" class="bot-btn gold">Call Now</a>
+        </div>
+    </div>
+
+    <div id="imageModal" class="modal" onclick="closePreview()">
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => { document.getElementById('legalBot').style.display = 'flex'; }, 2000);
+        });
+        function closeBot() { document.getElementById('legalBot').style.display = 'none'; }
+
+        function reveal() {
+            let reveals = document.querySelectorAll(".reveal");
+            reveals.forEach(el => {
+                let windowHeight = window.innerHeight;
+                let elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) el.classList.add("active");
+            });
+        }
+
+        let topBtn = document.getElementById("scrollToTopBtn");
+        window.onscroll = function() {
+            reveal();
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                topBtn.style.display = "block";
+            } else {
+                topBtn.style.display = "none";
+            }
+        };
+        function topFunction() { window.scrollTo({top: 0, behavior: 'smooth'}); }
+
+        function openPreview(src) { 
+            document.getElementById("imageModal").style.display = "block"; 
+            document.getElementById("modalImg").src = src; 
+        }
+        function closePreview() { document.getElementById("imageModal").style.display = "none"; }
+
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Thank you. Your message has been sent to Adoydam Solicitors.");
+            this.reset();
+        });
+    </script>
+</body>
+</html>
